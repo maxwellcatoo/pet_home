@@ -1,9 +1,7 @@
-// user表
-
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Pet {
+export class Pet extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -11,13 +9,13 @@ export class Pet {
   storeId: number; // 所属店铺
 
   @Column()
-  phone: string;
+  bigType: string; // 大种类 [猫、狗]
 
   @Column()
-  type: string; // 种类 [猫、狗]
+  smallType: string; // 小种类 [哈士奇、布偶]
 
   @Column()
-  age: number;
+  birth: number; // 出生日期（可计算出 年龄 和 生日）
 
   @Column()
   gender: string;

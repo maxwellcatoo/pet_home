@@ -1,14 +1,20 @@
-// user表
-
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { AdminUser } from './admin_user';
 
 @Entity()
-export class PetStore {
+export class PetStore extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  uid: string; // 账号id
+  @ManyToOne(() => AdminUser)
+  adminUser: AdminUser;
 
   @Column()
   storeName: string; // 店名
