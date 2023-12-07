@@ -9,5 +9,6 @@ import { AdminUserToken } from 'src/table/admin_user_token';
   imports: [TypeOrmModule.forFeature([AdminUser, AdminUserToken])],
   controllers: [AdminUserController],
   providers: [AdminUserService],
+  exports: [AdminUserService],
 })
 export class AdminUserModule {}

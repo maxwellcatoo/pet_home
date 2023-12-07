@@ -43,8 +43,8 @@ export class AdminUserService {
     return this.adminUserRepository.find();
   }
 
-  findOne(id: number): Promise<AdminUser> {
-    return this.adminUserRepository.findOne({ where: { id: id } });
+  findOne(account: string): Promise<AdminUser> {
+    return this.adminUserRepository.findOne({ where: { account: account } });
   }
 
   async remove(id: string): Promise<void> {

@@ -3,13 +3,15 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm'; // 使用数据库
 import { join } from 'path';
 import { Connection } from 'typeorm';
-import { AdminUserModule } from './admin_user/admin_user.module';
+import { AdminUserModule } from './modules/admin_user/admin_user.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { isDev } from './config/env';
 import { HttpExceptionFilter } from './shared/interceptor/fail_response.interceptor';
 import { TransformInterceptor } from './shared/interceptor/success_response.interceptor';
+import { AuthModule } from './modules/auth/auth.module';
+import { SharedModule } from './modules/shared/shared.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { TransformInterceptor } from './shared/interceptor/success_response.inte
       // entities: [AdminUser, PetStore, User, Pet, Photo, Token],
     }),
     AdminUserModule,
+    AuthModule,
+    SharedModule,
   ],
   controllers: [AppController],
   providers: [
@@ -37,8 +41,7 @@ import { TransformInterceptor } from './shared/interceptor/success_response.inte
       provide: APP_INTERCEPTOR,
       useClass: TransformInterceptor,
     },
-    // TODO 这个失败拦截器我一直不知道如何触发
-    // 失败请求拦截器
+    // 失败请求拦截器（访问非正常路由时触发）
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,

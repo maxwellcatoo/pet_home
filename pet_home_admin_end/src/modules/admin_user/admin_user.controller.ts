@@ -1,9 +1,13 @@
 import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { LoggerService } from 'src/shared/logger/logger.service';
 import { AdminUserService } from './admin_user.service';
 
 @Controller('admin_user')
 export class AdminUserController {
-  constructor(private readonly adminUserService: AdminUserService) {}
+  constructor(
+    private readonly adminUserService: AdminUserService,
+    private readonly logger: LoggerService,
+  ) {}
 
   /// 登录
   @Post('login')
@@ -31,5 +35,11 @@ export class AdminUserController {
     return autoLoginRes
       ? { desc: 'login success' }
       : { code: 202, desc: 'login fail' };
+  }
+
+  @Get('test')
+  async test() {
+    this.logger.log('hello world my friends');
+    return 'hello world test';
   }
 }
