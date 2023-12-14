@@ -27,10 +27,12 @@ export class TransformInterceptor
 
     return next.handle().pipe(
       map((data) => {
+        const { desc: _, code: __, ...extraInfo } = data;
         return {
-          data: data.data,
-          statusCode: data.code !== undefined ? data.code : 200,
-          message: data.desc,
+          data: data?.data,
+          statusCode: data?.code !== undefined ? data.code : 200,
+          message: data?.desc,
+          ...extraInfo,
         };
       }),
     );

@@ -12,6 +12,7 @@ import { HttpExceptionFilter } from './shared/interceptor/fail_response.intercep
 import { TransformInterceptor } from './shared/interceptor/success_response.interceptor';
 import { AuthModule } from './modules/auth/auth.module';
 import { SharedModule } from './modules/shared/shared.module';
+import { AuthService } from './modules/auth/auth.service';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { SharedModule } from './modules/shared/shared.module';
   controllers: [AppController],
   providers: [
     AppService,
+    AuthService,
     // 成功response拦截器，对请求成功的response数据进行统一包装
     {
       provide: APP_INTERCEPTOR,

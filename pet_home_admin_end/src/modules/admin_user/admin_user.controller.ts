@@ -13,6 +13,10 @@ export class AdminUserController {
   @Post('login')
   @HttpCode(200)
   async login(@Body() body: any): Promise<any> {
+    // 参数错误，直接返回
+    if (!body.account && !body.password) {
+      return { code: 400, desc: '参数错误' };
+    }
     return this.adminUserService.login(body.account, body.password);
   }
 
